@@ -31,6 +31,9 @@ default['cassandra']['root_dir'] = '/var/lib/cassandra' # data/ subdir added to 
 default['cassandra']['log_dir'] = '/var/log/cassandra'
 default['cassandra']['rootlogger'] = 'INFO,stdout,R'
 
+default['cassandra']['jbod']['slices'] = nil
+default['cassandra']['jbod']['dir_name_prefix'] = 'data'
+
 default['cassandra']['logback']['file']['max_file_size'] = '20MB'
 default['cassandra']['logback']['file']['max_index'] = 20
 default['cassandra']['logback']['file']['min_index'] = 1
