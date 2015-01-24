@@ -32,7 +32,15 @@ node.default['cassandra']['conf_dir']  = ::File.join(node['cassandra']['installa
 
 # commit log, data directory, saved caches and so on are all stored under the data root. MK.
 # node['cassandra']['root_dir sub dirs
-node.default['cassandra']['data_dir'] = ::File.join(node['cassandra']['root_dir'], 'data')
+data_dir = []
+if !node['cassandra']['jbod']['slices'].nil?
+  node['cassandra']['jbod']['slices'].times do |slice_number|
+    data_dir << ::File.join(node['cassandra']['root_dir'], "#{node['cassandra']['jbod']['dir_name_prefix']}#{slice_number}")
+  end
+else
+  data_dir << ::File.join(node['cassandra']['root_dir'], 'data')
+end
+node.default['cassandra']['data_dir'] = data_dir
 node.default['cassandra']['commitlog_dir'] = ::File.join(node['cassandra']['root_dir'], 'commitlog')
 node.default['cassandra']['saved_caches_dir'] = ::File.join(node['cassandra']['root_dir'], 'saved_caches')
 
