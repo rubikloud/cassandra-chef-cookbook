@@ -35,7 +35,7 @@ node.default['cassandra']['conf_dir']  = ::File.join(node['cassandra']['installa
 data_dir = []
 if !node['cassandra']['jbod']['slices'].nil?
   node['cassandra']['jbod']['slices'].times do |slice_number|
-    data_dir << ::File.join(node['cassandra']['root_dir'], "#{node['cassandra']['jbod']['dir_name_prefix']}#{slice_number}")
+    data_dir << ::File.join(node['cassandra']['root_dir'], "#{node['cassandra']['jbod']['dir_name_prefix']}#{slice_number + 1}")
   end
 else
   data_dir << ::File.join(node['cassandra']['root_dir'], 'data')
